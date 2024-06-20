@@ -44,6 +44,16 @@ final class VectorStoreFileResponse implements ResponseContract, ResponseHasMeta
      */
     public static function from(array $attributes, MetaInformation $meta): self
     {
+        if (!isset($attributes['usage_bytes'])) {
+            $attributes['usage_bytes'] = 0;
+        }
+
+        if (!isset($attributes['chunking_strategy'])) {
+            $attributes['chunking_strategy'] = [
+                'type' => 'auto'
+            ];
+        }
+
         return new self(
             $attributes['id'],
             $attributes['object'],
